@@ -13,14 +13,31 @@
         </developer>
     </developers>
     <properties>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
         <maven.compiler.source>16</maven.compiler.source>
         <maven.compiler.target>16</maven.compiler.target>
         <exec.mainClass>boardgame.Main</exec.mainClass>
         <jacoco.version>0.8.6</jacoco.version>
+        <tinylog.version>2.3.1</tinylog.version>
+
     </properties>
     <dependencies>
+
+        <dependency>
+            <groupId>org.tinylog</groupId>
+            <artifactId>tinylog-api</artifactId>
+            <version>${tinylog.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.tinylog</groupId>
+            <artifactId>tinylog-impl</artifactId>
+            <version>${tinylog.version}</version>
+            <scope>runtime</scope>
+        </dependency>
 
     </dependencies>
     <build>
