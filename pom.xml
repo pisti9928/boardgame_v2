@@ -1,0 +1,40 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>hu.unideb.inf</groupId>
+    <artifactId>boardgame</artifactId>
+    <version>1.0</version>
+    <developers>
+        <developer>
+            <id>pisti9928</id>
+            <name>István Káplár</name>
+            <email>pistike.kaplar@gmail.com</email>
+        </developer>
+    </developers>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
+        <maven.compiler.source>16</maven.compiler.source>
+        <maven.compiler.target>16</maven.compiler.target>
+        <exec.mainClass>boardgame.Main</exec.mainClass>
+    </properties>
+    <dependencies>
+
+    </dependencies>
+    <build>
+        <plugins>
+
+
+        </plugins>
+    </build>
+    <reporting>
+        <plugins>
+
+        </plugins>
+    </reporting>
+    <scm>
+        <connection>scm:git:https://github.com/pisti9928/boardgameproject.git</connection>
+        <developerConnection>scm:git:https://github.com/pisti9928/boardgameproject.git</developerConnection>
+    </scm>
+</project>
