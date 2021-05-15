@@ -1,8 +1,11 @@
 package boardgame;
 
 import boardgame.model.BoardGameModel;
+import boardgame.model.GameStateType;
 import boardgame.model.PawnDirection;
 import boardgame.model.Position;
+import boardgame.player.Player;
+import boardgame.player.PlayerState;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
@@ -42,10 +45,11 @@ public class BoardGameController {
 
     @FXML
     private void initialize() {
+        PlayerState.setStartingPlayer(1);
         createBoard();
         createPieces();
         setSelectablePositions();
-        showSelectablePositions();
+        showSelectablePositions(PlayerState.getNextPlayer());
     }
 
     private void createBoard() {
@@ -121,7 +125,8 @@ public class BoardGameController {
         selectionPhase = selectionPhase.alter();
         hideSelectablePositions();
         setSelectablePositions();
-        showSelectablePositions();
+        PlayerState.setNextPlayer();
+        showSelectablePositions(PlayerState.getNextPlayer());
     }
 
 
@@ -129,7 +134,27 @@ public class BoardGameController {
 
     private void setSelectablePositions() {
         selectablePositions.clear();
-        selectablePositions.addAll(model.getPiecePositions());
+        if (model.elsoLepes) {
+            selectablePositions.addAll(model.getPiecePositions());
+        }
+        else {
+            model.setstate();
+            if(model.state.equals(GameStateType.PLAYING)){
+                selectablePositions.addAll(model.getPiecePositions());
+            }
+            else if (model.state.equals(GameStateType.PLAYERBLUEWIN)){
+                Logger.debug("BlueWin");
+            }
+            else if (model.state.equals(GameStateType.PLAYERREDWIN)){
+                Logger.debug("RedWin");
+            }
+            else {
+                Logger.debug("Draw");
+            }
+
+
+        }
+
         /*
         switch (selectionPhase) {
             case SELECT_FROM -> selectablePositions.addAll(model.getPiecePositions());
@@ -143,10 +168,17 @@ public class BoardGameController {
     }
 
 
-    private void showSelectablePositions() {
+    private void showSelectablePositions(Player nextPlayer) {
+
         for (var selectablePosition : selectablePositions) {
             var square = getSquare(selectablePosition);
-            square.getStyleClass().add("selectable");
+            if (nextPlayer.equals(Player.PLAYERBLUE)){
+                square.getStyleClass().add("selectable1");
+            }
+            else{
+                square.getStyleClass().add("selectable2");
+            }
+
         }
     }
 
@@ -155,7 +187,8 @@ public class BoardGameController {
     private void hideSelectablePositions() {
         for (var selectablePosition : selectablePositions) {
             var square = getSquare(selectablePosition);
-            square.getStyleClass().remove("selectable");
+            square.getStyleClass().remove("selectable1");
+            square.getStyleClass().remove("selectable2");
         }
     }
 
