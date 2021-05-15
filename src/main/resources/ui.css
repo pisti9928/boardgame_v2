@@ -1,0 +1,18 @@
+.square {
+    -fx-border-style: solid;
+}
+
+.selected {
+    -fx-background-color: silver;
+}
+
+.selectable {
+    -fx-border-width: 5;
+    -fx-background-color: lime;
+
+}
+
+.square:hover {
+    -fx-background-color: ghostwhite;
+}
+
