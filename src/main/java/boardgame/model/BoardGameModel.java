@@ -1,10 +1,8 @@
 package boardgame.model;
 
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyObjectWrapper;
 
 import java.util.*;
-import java.util.logging.Logger;
 
 public class BoardGameModel {
 
@@ -13,8 +11,11 @@ public class BoardGameModel {
     private final Piece[] pieces;
     //private ReadOnlyObjectWrapper<Piece>[][] board = new ReadOnlyObjectWrapper[BOARD_SIZE][BOARD_SIZE];
 
-    private boolean elsoLepes=true;
+    public GameStateType state;
+
+    public boolean elsoLepes=true;
     private int utolsoPozicioSzam;
+
 
     public BoardGameModel() {
         this.pieces = new Piece[BOARD_SIZE*BOARD_SIZE];
@@ -48,6 +49,54 @@ public class BoardGameModel {
         checkPieces(pieces);
         this.pieces = pieces.clone();
     }
+
+    public  GameStateType setstate(){
+        boolean blueWin = true;
+        boolean redWin = true;
+        int blueCount = 0;
+        int redCount = 0;
+        if (getPiecePositions().isEmpty()){
+            for (var piece : pieces){
+                if (piece.getType().equals(PieceType.BLUE)) {
+                    blueCount += 1;
+                }
+                if (piece.getType().equals(PieceType.RED)){
+                    redCount += 1;
+                }
+            }
+            if (blueCount<redCount){
+                state = GameStateType.PLAYERBLUEWIN;
+            }
+            else if (blueCount>redCount){
+                state = GameStateType.PLAYERREDWIN;
+            }
+            else{
+                state = GameStateType.DRAW;
+            }
+        }
+        else
+        {
+            for (var piece : pieces){
+                if (piece.getType().equals(PieceType.BLUE)) {
+                    blueWin = false;
+                }
+                if (piece.getType().equals(PieceType.RED)){
+                    redWin = false;
+                }
+            }
+            if (blueWin){
+                state =  GameStateType.PLAYERBLUEWIN;
+            }
+            else if (redWin){
+                state =  GameStateType.PLAYERREDWIN;
+            }
+            else{
+                state =  GameStateType.PLAYING;
+            }
+        }
+        return state;
+    }
+
 
     private void checkPieces(Piece[] pieces) {
         var seen = new HashSet<Position>();
@@ -154,6 +203,8 @@ public class BoardGameModel {
         }
         return OptionalInt.empty();
     }
+
+
 
     public String toString() {
         StringJoiner joiner = new StringJoiner(",", "[", "]");
