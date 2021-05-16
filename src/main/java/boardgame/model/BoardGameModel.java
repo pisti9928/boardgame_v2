@@ -1,5 +1,7 @@
 package boardgame.model;
 
+import boardgame.jdbi.LeaderboardController;
+import boardgame.player.PlayerState;
 import javafx.beans.property.ObjectProperty;
 
 import java.util.*;
@@ -13,7 +15,7 @@ public class BoardGameModel {
 
     public GameStateType state;
 
-    public boolean elsoLepes=true;
+    public static boolean elsoLepes=true;
     private int utolsoPozicioSzam;
 
 
@@ -34,7 +36,7 @@ public class BoardGameModel {
                     this.pieces[i * BOARD_SIZE + j] =new Piece(PieceType.RED,new Position(i,j));
                 }
                 else {
-                    this.pieces[i * BOARD_SIZE + j] =new Piece(PieceType.GREEN,new Position(i,j));
+                    this.pieces[i * BOARD_SIZE + j] =new Piece(PieceType.LIME,new Position(i,j));
 
                 }
 
@@ -55,7 +57,10 @@ public class BoardGameModel {
         boolean redWin = true;
         int blueCount = 0;
         int redCount = 0;
+
         if (getPiecePositions().isEmpty()){
+            LeaderboardController leaderboardController = new LeaderboardController();
+            leaderboardController.createTable();
             for (var piece : pieces){
                 if (piece.getType().equals(PieceType.BLUE)) {
                     blueCount += 1;
@@ -66,12 +71,20 @@ public class BoardGameModel {
             }
             if (blueCount<redCount){
                 state = GameStateType.PLAYERBLUEWIN;
+                leaderboardController.insertWinner(PlayerState.getBluePlayerName());
+                leaderboardController.insertLoser(PlayerState.getRedPlayerName());
+
             }
             else if (blueCount>redCount){
                 state = GameStateType.PLAYERREDWIN;
+                leaderboardController.insertWinner(PlayerState.getRedPlayerName());
+                leaderboardController.insertLoser(PlayerState.getBluePlayerName());
+
             }
             else{
                 state = GameStateType.DRAW;
+                leaderboardController.insertDrawer(PlayerState.getRedPlayerName());
+                leaderboardController.insertDrawer(PlayerState.getBluePlayerName());
             }
         }
         else
