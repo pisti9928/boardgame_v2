@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="840.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boardgame.scene.PlayerNameController">
+   <children>
+      <VBox minHeight="840.0" minWidth="840.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="First Player">
+                     <HBox.margin>
+                        <Insets bottom="100.0" left="100.0" right="25.0" top="200.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextArea fx:id="fPlayer" minHeight="30.0" minWidth="120.0" prefWidth="200.0" promptText="Player1">
+                     <HBox.margin>
+                        <Insets bottom="100.0" top="200.0" />
+                     </HBox.margin>
+                  </TextArea>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Second Player">
+                     <HBox.margin>
+                        <Insets bottom="100.0" left="80.0" right="25.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextArea fx:id="sPlayer" minHeight="30.0" minWidth="120.0" prefWidth="200.0" promptText="Player2">
+                     <HBox.margin>
+                        <Insets bottom="200.0" />
+                     </HBox.margin>
+                  </TextArea>
+               </children>
+            </HBox>
+            <Button mnemonicParsing="false" onAction="#nextToGame" text="Tovább">
+               <VBox.margin>
+                  <Insets left="200.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
