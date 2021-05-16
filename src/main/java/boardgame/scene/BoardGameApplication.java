@@ -1,4 +1,4 @@
-package boardgame;
+package boardgame.scene;
 
 import java.io.IOException;
 import java.util.Objects;
