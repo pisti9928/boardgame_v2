@@ -37,13 +37,4 @@ public class Piece {
         return type.toString() + position.get().toString();
     }
 
-    public static void main(String[] args) {
-        Piece piece = new Piece(PieceType.BLUE, new Position(0, 0));
-        piece.positionProperty().addListener((observableValue, oldPosition, newPosition) -> {
-            System.out.printf("%s -> %s\n", oldPosition.toString(), newPosition.toString());
-        });
-        System.out.println(piece);
-        piece.moveTo(PawnDirection.DOWN_RIGHT);
-        System.out.println(piece);
-    }
 }
