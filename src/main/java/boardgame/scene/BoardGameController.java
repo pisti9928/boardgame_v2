@@ -1,4 +1,4 @@
-package boardgame;
+package boardgame.scene;
 
 import boardgame.jdbi.LeaderboardController;
 import boardgame.jdbi.PlayerSet;
@@ -10,15 +10,22 @@ import boardgame.player.Player;
 import boardgame.player.PlayerState;
 import boardgame.scene.PlayerNameController;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 import org.tinylog.Logger;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -213,4 +220,23 @@ public class BoardGameController {
         newSquare.getChildren().addAll(oldSquare.getChildren());
         oldSquare.getChildren().clear();
     }
+
+    @FXML
+    private void goMenu(ActionEvent event)throws IOException {
+        model.elsoLepes = true;
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/menu.fxml"));
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    @FXML
+    private void reset(ActionEvent event)throws IOException {
+        model.elsoLepes = true;
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/ui.fxml"));
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
 }
