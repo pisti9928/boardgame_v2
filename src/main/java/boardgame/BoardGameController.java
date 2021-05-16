@@ -1,13 +1,17 @@
 package boardgame;
 
+import boardgame.jdbi.LeaderboardController;
+import boardgame.jdbi.PlayerSet;
 import boardgame.model.BoardGameModel;
 import boardgame.model.GameStateType;
 import boardgame.model.PawnDirection;
 import boardgame.model.Position;
 import boardgame.player.Player;
 import boardgame.player.PlayerState;
+import boardgame.scene.PlayerNameController;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -44,8 +48,17 @@ public class BoardGameController {
     private GridPane board;
 
     @FXML
+    private Label firstPlayerName;
+
+    @FXML
+    private Label secondPlayerName;
+
+    @FXML
     private void initialize() {
-        PlayerState.setStartingPlayer(1);
+
+        firstPlayerName.setText(PlayerState.getRedPlayerName());
+        secondPlayerName.setText(PlayerState.getBluePlayerName());
+        PlayerState.setStartingPlayer();
         createBoard();
         createPieces();
         setSelectablePositions();
@@ -144,6 +157,7 @@ public class BoardGameController {
             }
             else if (model.state.equals(GameStateType.PLAYERBLUEWIN)){
                 Logger.debug("BlueWin");
+
             }
             else if (model.state.equals(GameStateType.PLAYERREDWIN)){
                 Logger.debug("RedWin");
