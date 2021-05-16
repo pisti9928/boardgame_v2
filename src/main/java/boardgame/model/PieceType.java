@@ -2,8 +2,7 @@ package boardgame.model;
 
 public enum PieceType {
     BLUE,
-    GREEN,
+    LIME,
     RED,
-    TRANSPARENT,
-    WHITE
+    TRANSPARENT
 }
