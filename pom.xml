@@ -5,6 +5,7 @@
     <groupId>hu.unideb.inf</groupId>
     <artifactId>boardgame</artifactId>
     <version>1.0</version>
+    <packaging>jar</packaging>
     <developers>
         <developer>
             <id>pisti9928</id>
@@ -143,7 +144,6 @@
                         <goals>
                             <goal>shade</goal>
                         </goals>
-                        <phase>package</phase>
                         <configuration>
                             <transformers>
                                 <transformer
@@ -156,6 +156,19 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.1.2</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>8.42</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
         </plugins>

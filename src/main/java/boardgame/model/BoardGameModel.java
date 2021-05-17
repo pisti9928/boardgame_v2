@@ -11,7 +11,6 @@ public class BoardGameModel {
     public static int BOARD_SIZE = 7;
 
     private final Piece[] pieces;
-    //private ReadOnlyObjectWrapper<Piece>[][] board = new ReadOnlyObjectWrapper[BOARD_SIZE][BOARD_SIZE];
 
     public GameStateType state;
 
@@ -21,14 +20,9 @@ public class BoardGameModel {
 
     public BoardGameModel() {
         this.pieces = new Piece[BOARD_SIZE*BOARD_SIZE];
-        //this(new Piece(PieceType.GREEN,new Position(0,0)));
-
         for(int i = 0;i<BOARD_SIZE;i++){
-
             for(int j=0; j <BOARD_SIZE;j++)
             {
-
-
                 if ((i==0 || i==BOARD_SIZE-1 )&& (j!=0 && j!=BOARD_SIZE-1)){
                     this.pieces[i * BOARD_SIZE + j] =new Piece(PieceType.BLUE,new Position(i,j));
                 }
@@ -37,27 +31,17 @@ public class BoardGameModel {
                 }
                 else {
                     this.pieces[i * BOARD_SIZE + j] =new Piece(PieceType.LIME,new Position(i,j));
-
                 }
-
-
             }
         }
-
-
     }
 
-    public BoardGameModel(Piece... pieces) {
-        checkPieces(pieces);
-        this.pieces = pieces.clone();
-    }
 
     public  GameStateType setstate(){
         boolean blueWin = true;
         boolean redWin = true;
         int blueCount = 0;
         int redCount = 0;
-
         if (getPiecePositions().isEmpty()){
             LeaderboardController leaderboardController = new LeaderboardController();
             leaderboardController.createTable();
@@ -99,9 +83,17 @@ public class BoardGameModel {
             }
             if (blueWin){
                 state =  GameStateType.PLAYERBLUEWIN;
+                LeaderboardController leaderboardController = new LeaderboardController();
+                leaderboardController.createTable();
+                leaderboardController.insertWinner(PlayerState.getBluePlayerName());
+                leaderboardController.insertLoser(PlayerState.getRedPlayerName());
             }
             else if (redWin){
                 state =  GameStateType.PLAYERREDWIN;
+                LeaderboardController leaderboardController = new LeaderboardController();
+                leaderboardController.createTable();
+                leaderboardController.insertWinner(PlayerState.getRedPlayerName());
+                leaderboardController.insertLoser(PlayerState.getBluePlayerName());
             }
             else{
                 state =  GameStateType.PLAYING;
@@ -121,9 +113,11 @@ public class BoardGameModel {
         }
     }
 
+
     public int getPieceCount() {
         return pieces.length;
     }
+
 
     public PieceType getPieceType(int pieceNumber) {
         return pieces[pieceNumber].getType();
@@ -134,9 +128,11 @@ public class BoardGameModel {
         return pieces[pieceNumber].getPosition();
     }
 
+
     public ObjectProperty<Position> positionProperty(int pieceNumber) {
         return pieces[pieceNumber].positionProperty();
     }
+
 
     public boolean isValidMove(int pieceNumber, PawnDirection direction) {
         if (pieceNumber < 0 || pieceNumber >= pieces.length) {
@@ -152,6 +148,7 @@ public class BoardGameModel {
 
         return true;
     }
+
 
     public List<Position> getPiecePositions(){
         List<Position> positions = new ArrayList<>();
@@ -174,6 +171,7 @@ public class BoardGameModel {
 
     }
 
+
     public Set<PawnDirection> getValidMoves(int pieceNumber) {
         EnumSet<PawnDirection> validMoves = EnumSet.noneOf(PawnDirection.class);
         for (var direction : PawnDirection.values()) {
@@ -185,7 +183,6 @@ public class BoardGameModel {
     }
 
 
-
     public void remove(int pieceNumber) {
         pieces[pieceNumber] = new Piece(PieceType.TRANSPARENT,pieces[pieceNumber].getPosition());
         System.out.println(pieceNumber);
@@ -194,20 +191,12 @@ public class BoardGameModel {
     }
 
 
-
     public static boolean isOnBoard(Position position) {
         return 0 <= position.row() && position.row() < BOARD_SIZE
                 && 0 <= position.col() && position.col() < BOARD_SIZE;
     }
-/*
-    public List<Position> getPiecePositions() {
-        List<Position> positions = new ArrayList<>(pieces.length);
-        for (var piece : pieces) {
-            positions.add(piece.getPosition());
-        }
-        return positions;
-    }
-*/
+
+
     public OptionalInt getPieceNumber(Position position) {
         for (int i = 0; i < pieces.length; i++) {
             if (pieces[i].getPosition().equals(position)) {
@@ -218,7 +207,6 @@ public class BoardGameModel {
     }
 
 
-
     public String toString() {
         StringJoiner joiner = new StringJoiner(",", "[", "]");
         for (var piece : pieces) {
@@ -226,6 +214,7 @@ public class BoardGameModel {
         }
         return joiner.toString();
     }
+
 
     public static void main(String[] args) {
         BoardGameModel model = new BoardGameModel();

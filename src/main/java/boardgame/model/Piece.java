@@ -21,14 +21,6 @@ public class Piece {
         return position.get();
     }
 
-    public void moveTo(Direction direction) {
-        Position newPosition = position.get().moveTo(direction);
-        position.set(newPosition);
-
-    }
-
-
-
     public ObjectProperty<Position> positionProperty() {
         return position;
     }

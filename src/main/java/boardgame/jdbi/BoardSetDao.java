@@ -1,3 +1,4 @@
+// CHECKSTYLE:OFF
 package boardgame.jdbi;
 
 
@@ -14,15 +15,7 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 @RegisterBeanMapper(PlayerSet.class)
 public interface BoardSetDao {
 
-    @SqlUpdate("""
-        CREATE TABLE leaderboard (
-            name VARCHAR PRIMARY KEY,
-            wins INTEGER NOT NULL,
-            loses INTEGER NOT NULL,
-            draws INTEGER NOT NULL
-        )
-        """
-    )
+    @SqlUpdate("CREATE TABLE leaderboard (name VARCHAR PRIMARY KEY, wins INTEGER NOT NULL, loses INTEGER NOT NULL, draws INTEGER NOT NULL ) " )
     void createTable();
 
     @SqlUpdate("INSERT INTO leaderboard VALUES (:name, 1, 0,0)")
