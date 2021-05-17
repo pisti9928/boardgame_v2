@@ -55,20 +55,17 @@ public class BoardGameModel {
             }
             if (blueCount<redCount){
                 state = GameStateType.PLAYERBLUEWIN;
-                leaderboardController.insertWinner(PlayerState.getBluePlayerName());
-                leaderboardController.insertLoser(PlayerState.getRedPlayerName());
+                GameState.blueWin();
+
 
             }
             else if (blueCount>redCount){
                 state = GameStateType.PLAYERREDWIN;
-                leaderboardController.insertWinner(PlayerState.getRedPlayerName());
-                leaderboardController.insertLoser(PlayerState.getBluePlayerName());
-
+                GameState.redWin();
             }
             else{
                 state = GameStateType.DRAW;
-                leaderboardController.insertDrawer(PlayerState.getRedPlayerName());
-                leaderboardController.insertDrawer(PlayerState.getBluePlayerName());
+                GameState.draw();
             }
         }
         else
@@ -83,17 +80,11 @@ public class BoardGameModel {
             }
             if (blueWin){
                 state =  GameStateType.PLAYERBLUEWIN;
-                LeaderboardController leaderboardController = new LeaderboardController();
-                leaderboardController.createTable();
-                leaderboardController.insertWinner(PlayerState.getBluePlayerName());
-                leaderboardController.insertLoser(PlayerState.getRedPlayerName());
+                GameState.blueWin();
             }
             else if (redWin){
                 state =  GameStateType.PLAYERREDWIN;
-                LeaderboardController leaderboardController = new LeaderboardController();
-                leaderboardController.createTable();
-                leaderboardController.insertWinner(PlayerState.getRedPlayerName());
-                leaderboardController.insertLoser(PlayerState.getBluePlayerName());
+                GameState.redWin();
             }
             else{
                 state =  GameStateType.PLAYING;
@@ -103,21 +94,18 @@ public class BoardGameModel {
     }
 
 
-    private void checkPieces(Piece[] pieces) {
-        var seen = new HashSet<Position>();
-        for (var piece : pieces) {
-            if (! isOnBoard(piece.getPosition()) || seen.contains(piece.getPosition())) {
-                throw new IllegalArgumentException();
-            }
-            seen.add(piece.getPosition());
-        }
-    }
-
-
     public int getPieceCount() {
         return pieces.length;
     }
 
+
+    public Piece[] getPieces(){
+        return pieces;
+    }
+
+    public void setPieces(PieceType type, Position position, int pieceNumber){
+        pieces[pieceNumber] = new Piece(type,position);
+    }
 
     public PieceType getPieceType(int pieceNumber) {
         return pieces[pieceNumber].getType();
@@ -145,7 +133,6 @@ public class BoardGameModel {
         if (pieces[newPosition.row()*BOARD_SIZE+newPosition.col()].getType().equals(PieceType.TRANSPARENT)){
             return false;
         }
-
         return true;
     }
 
