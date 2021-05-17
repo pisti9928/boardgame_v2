@@ -4,9 +4,12 @@ import boardgame.jdbi.PlayerSet;
 import boardgame.model.BoardGameModel;
 import java.util.Random;
 
+/**
+ * Ez az osztaly tarolja el a jatekosokhoz tartozo informaciokat.
+ */
 public class PlayerState {
     /**
-     * kovetkezo jatekos
+     * kovetkezo jatekos.
      */
     private static Player nextPlayer;
     /**
@@ -89,7 +92,7 @@ public class PlayerState {
     }
 
     /**
-     * kovetkezo jatekos getter metodusa
+     * kovetkezo jatekos getter metodusa.
      * @return Player tipuso nexPlayer -rel ter vissza.
      */
     public static Player getNextPlayer(){

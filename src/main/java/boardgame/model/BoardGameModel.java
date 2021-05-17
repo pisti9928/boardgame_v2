@@ -184,8 +184,8 @@ public class BoardGameModel {
     }
 
     /**
-     * Position tipusu listaban visszaadja a position-oket
-     * @return Position lista
+     * Position tipusu listaban visszaadja a position-oket.
+     * @return Position lista.
      */
     public List<Position> getPiecePositions(){
         List<Position> positions = new ArrayList<>();
@@ -269,11 +269,4 @@ public class BoardGameModel {
         }
         return joiner.toString();
     }
-
-
-    public static void main(String[] args) {
-        BoardGameModel model = new BoardGameModel();
-        Logger.debug(model);
-    }
-
 }

@@ -1,3 +1,4 @@
+// CHECKSTYLE:OFF
 package boardgame.scene;
 
 import boardgame.player.Player;

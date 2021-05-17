@@ -1,3 +1,4 @@
+// CHECKSTYLE:OFF
 package boardgame.scene;
 
 import boardgame.jdbi.PlayerSet;

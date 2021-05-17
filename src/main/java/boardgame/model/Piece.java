@@ -17,6 +17,11 @@ public class Piece {
      * */
     private final ObjectProperty<Position> position = new SimpleObjectProperty<>();
 
+    /**
+     * Letrehoz egy uj piece-t az adott tipussal es pozicioval.
+     * @param type piece tipusa.
+     * @param position piece pozicioja.
+     */
     public Piece(PieceType type, Position position) {
         this.type = type;
         this.position.set(position);

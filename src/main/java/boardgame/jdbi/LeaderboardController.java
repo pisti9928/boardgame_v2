@@ -8,9 +8,12 @@ import org.tinylog.Logger;
 
 import java.util.ArrayList;
 
+/**
+ * Az adatbazis kezelesehez szukseges metodusokat tartalmazo osztaly.
+ */
 public class LeaderboardController {
     /**
-     * jdbi peldanyositva
+     * jdbi peldanyositva.
      */
     private static Jdbi jdbi;
 
