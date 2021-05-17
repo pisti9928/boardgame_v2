@@ -115,18 +115,13 @@ public class BoardGameController {
             circle.setFill(Color.TRANSPARENT);
             Logger.debug("Click on square {}", position);
         }
-
         handleClickOnSquare(position);
-
     }
 
     private void handleClickOnSquare(Position position) {
         if (selectablePositions.contains(position)) {
             selected = position;
-
             alterSelectionPhase();
-
-            //Logger.debug("Remove piece {}", pieceNumber);
         }
     }
 
@@ -162,30 +157,7 @@ public class BoardGameController {
             if(model.state.equals(GameStateType.PLAYING)){
                 selectablePositions.addAll(model.getPiecePositions());
             }
-            else if (model.state.equals(GameStateType.PLAYERBLUEWIN)){
-                Logger.debug("BlueWin");
-
-            }
-            else if (model.state.equals(GameStateType.PLAYERREDWIN)){
-                Logger.debug("RedWin");
-            }
-            else {
-                Logger.debug("Draw");
-            }
-
-
         }
-
-        /*
-        switch (selectionPhase) {
-            case SELECT_FROM -> selectablePositions.addAll(model.getPiecePositions());
-            case SELECT_TO -> {
-                var pieceNumber = model.getPieceNumber(selected).getAsInt();
-                for (var direction : model.getValidMoves(pieceNumber)) {
-                    selectablePositions.add(selected.moveTo(direction));
-                }
-            }
-        }*/
     }
 
 
