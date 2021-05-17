@@ -4,9 +4,13 @@ import boardgame.jdbi.LeaderboardController;
 import boardgame.player.PlayerState;
 import org.tinylog.Logger;
 
-
+/**
+ * jatekallapotokat tartalmazi osztaly.
+ */
 public class GameState {
-
+    /**
+     * A kek jatekos nyert, adatbazisba irja az eredmenyt.
+     */
     public static void blueWin() {
         LeaderboardController leaderboardController = new LeaderboardController();
         leaderboardController.createTable();
@@ -15,6 +19,9 @@ public class GameState {
         Logger.debug("Blue Win");
     }
 
+    /**
+     * A piros jatekos nyert, adatbazisba irja az eredmenyt.
+     */
     public static void redWin(){
         LeaderboardController leaderboardController = new LeaderboardController();
         leaderboardController.createTable();
@@ -24,6 +31,9 @@ public class GameState {
 
     }
 
+    /**
+     * Dontetlen lett az eredmeny, adatbazisba irja az eredmenyt.
+     */
     public static void draw(){
         LeaderboardController leaderboardController = new LeaderboardController();
         leaderboardController.createTable();

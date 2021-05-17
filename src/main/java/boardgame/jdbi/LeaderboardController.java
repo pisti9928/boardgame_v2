@@ -9,8 +9,15 @@ import org.tinylog.Logger;
 import java.util.ArrayList;
 
 public class LeaderboardController {
+    /**
+     * jdbi peldanyositva
+     */
     private static Jdbi jdbi;
 
+    /**
+     * LeaderboardController konstruktora.
+     * Letrehozza a mappat, fajlt ha nem lezezik.
+     */
     public LeaderboardController() {
         this.jdbi = Jdbi.create("jdbc:h2:file:~/.boardgame-2_16/leaderboard","as","");
         this.jdbi.installPlugin(new SqlObjectPlugin());
@@ -18,26 +25,23 @@ public class LeaderboardController {
 
     }
 
+    /**
+     * Ha letezik a tabla akkor Exception-t elkap es logol.
+     */
     public static void createTable(){
         try{
             jdbi.withExtension(BoardSetDao.class, dao -> {dao.createTable(); return true;});
         }
         catch (Exception e) {
-            Logger.info("A tábla már létezik");
-
+            Logger.debug("A tábla már létezik");
         }
     }
 
-    public static Jdbi getJdbiInstance()
-    {
-        if(jdbi == null){
-            new LeaderboardController();
-        }
-        return jdbi;
-    }
-
+    /**
+     * Beszurja a tablaba nev alapjan a gyoztest.
+     * @param playerName jatekos neve.
+     */
     public static void insertWinner(String playerName){
-        //new LeaderboardController();
         boolean playerExists = jdbi.withExtension(BoardSetDao.class, dao -> dao.playerExists(playerName));
         if (playerExists){
             int winsCount = jdbi.withExtension(BoardSetDao.class, dao -> dao.numberOfWins(playerName));
@@ -54,8 +58,11 @@ public class LeaderboardController {
         }
     }
 
+    /**
+     * Beszurja a tablaba nev alapjan a vesztest.
+     * @param playerName jatekos neve.
+     */
     public static void insertLoser(String playerName){
-        //new LeaderboardController();
         boolean playerExists = jdbi.withExtension(BoardSetDao.class, dao -> dao.playerExists(playerName));
         if (playerExists){
             int losesCount = jdbi.withExtension(BoardSetDao.class, dao -> dao.numberOfLoses(playerName));
@@ -72,8 +79,11 @@ public class LeaderboardController {
         }
     }
 
+    /**
+     * Dontetlen eseten beszurja a tablaba a jatekost.
+     * @param playerName jatekos neve.
+     */
     public static void insertDrawer(String playerName){
-        //new LeaderboardController();
         boolean playerExists = jdbi.withExtension(BoardSetDao.class, dao -> dao.playerExists(playerName));
         if (playerExists){
             int drawsCount = jdbi.withExtension(BoardSetDao.class, dao -> dao.numberOfDraws(playerName));
@@ -90,6 +100,10 @@ public class LeaderboardController {
         }
     }
 
+    /**
+     * Ez a fuggveny  visszaadja az elso 10 jatekost, ha kevesebb jatekos van akkor kevesebbet.
+     * @return PlayerSet tipusu lista.
+     */
     public static ArrayList<PlayerSet> getFirstTenRecord(){
         if (jdbi == null){
             ArrayList<PlayerSet> topTen = new ArrayList<PlayerSet>();
@@ -113,6 +127,10 @@ public class LeaderboardController {
         }
     }
 
+    /**
+     * Az adatbazisbol kitorli a rekordokat.
+     * Ez a tabla eldobasaval tortenik.
+     */
     public static void deleteLeaderboard(){
         jdbi.withExtension(BoardSetDao.class, dao -> {dao.deleteLeaderboard();return true;});
         Logger.debug("Az adatbázis tartalma törölve");

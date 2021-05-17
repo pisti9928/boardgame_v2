@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * PlayerSet osztaly. Ilyen tipusuak lesznek a playerek akik jatszanak, szukseg van erre a tabla Bind -olasahoz.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
